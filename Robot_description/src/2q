@@ -1,0 +1,61 @@
+import numpy as np
+import rospy
+from sensor_msgs.msg import JointState
+from tf2_msgs.msg import TFMessage
+from inverse_kinematics import invKin
+from inverse_kinematics import analytical
+from joint_state_publisher import JointPublisher
+from tfListener import CameraGet
+
+
+def do_work(js, cg, pad):
+    js.go_home(False)
+    rospy.sleep(4)
+    T = cg.get_transform('fiducial_33', 'fiducial_8')
+    print(T)
+    js.go_to_pos(T, False)
+    rospy.sleep(2)
+    js.go_to_pos(T, True)
+    rospy.sleep(2)
+    js.go_to_pos(T, False)
+    rospy.sleep(2)
+    js.go_to_pad(pad, False)
+    rospy.sleep(2)
+    js.go_to_pad(pad, True)
+    rospy.sleep(2)
+    js.go_to_pad(pad, False)
+
+        
+
+def main():
+    rospy.init_node('big_boi')
+    js = JointPublisher()
+    cg = CameraGet()
+    pad = 1
+
+    js.go_home(False)
+    rospy.sleep(3)
+    #while(1):
+    #    if (pad == 4):
+    #        pad = 1
+    #    do_work(js,cg,pad)
+    #    pad = pad + 1
+    #js.go_to_pos(T, False)
+    #print(T)
+    T = cg.get_transform('fiducial_33', 'fiducial_8')
+    print(T)
+    #js.go_to_pos(T, False)
+
+    
+    
+
+    
+    
+
+if __name__ == '__main__':
+    main()
+
+
+
+
+

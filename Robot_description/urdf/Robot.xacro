@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+<robot name="Robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<xacro:include filename="$(find Robot_description)/urdf/materials.xacro" />
+<xacro:include filename="$(find Robot_description)/urdf/Robot.trans" />
+<xacro:include filename="$(find Robot_description)/urdf/Robot.gazebo" />
+
+<link name="world"/>
+
+<joint name="baseToWorld" type="fixed">
+  <origin rpy="${pi / 2} 0 0" />
+  <parent link="world"/>
+  <child link="base_link"/>
+</joint>
+
+<link name="base_link">
+  <inertial>
+    <origin rpy="0 0 0" xyz="-0.10000000000000094 0.030204208236193887 -0.16307312251777806"/>
+    <mass value="3.4791202059222757"/>
+    <inertia ixx="0.031665" ixy="-0.0" ixz="0.0" iyy="0.042077" iyz="0.001586" izz="0.012633"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0 0 0"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/base_link.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rev8" type="revolute">
+  <origin rpy="0 0 0" xyz="-0.1 0.053 -0.1"/>
+  <parent link="base_link"/>
+  <child link="link_1_1_1_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+  <limit effort="100" lower="${-pi*150/180}" upper="${pi*150/180}" velocity="100"/>
+</joint>
+
+<link name="link_1_1_1_1">
+  <inertial>
+    <origin rpy="0 0 0" xyz="1.2308955858450488e-05 0.10020544292648656 -0.05013429985790946"/>
+    <mass value="0.21441154770878204"/>
+    <inertia ixx="0.001813" ixy="0.0" ixz="-0.0" iyy="0.000768" iyz="0.00082" izz="0.001123"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="0.1 -0.053 0.1"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/link_1_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0.1 -0.053 0.1"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/link_1_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rev9" type="revolute">
+  <origin rpy="0 0 0" xyz="0.0 0.2 -0.1"/>
+  <parent link="link_1_1_1_1"/>
+  <child link="link_2_1_1_1"/>
+  <axis xyz="0.0 1.0 0.0"/>
+  <limit effort="100" lower="${-pi*150/180}" upper="${pi*150/180}" velocity="100"/>
+</joint>
+
+<link name="link_2_1_1_1">
+  <inertial>
+    <origin rpy="0 0 0" xyz="0.003962379945163755 0.015741079117298384 -0.06910776946682196"/>
+    <mass value="0.12524639131958526"/>
+    <inertia ixx="0.000235" ixy="-1e-06" ixz="2.2e-05" iyy="0.000249" iyz="1.6e-05" izz="4.6e-05"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="0.1 -0.253 0.2"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/link_2_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0.1 -0.253 0.2"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/link_2_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Slider11" type="prismatic">
+  <origin rpy="0 0 0" xyz="0.019 0.03633 -0.105495"/>
+  <parent link="link_2_1_1_1"/>
+  <child link="link_3_1_1_1"/>
+  <axis xyz="0.0 -1.0 0.0"/>
+  <!-- <limit effort="100" lower="-1" upper="1" velocity="100"/> -->
+  <limit effort="100" lower="-0.036" upper="0.096" velocity="100"/>
+</joint>
+
+<link name="link_3_1_1_1">
+  <inertial>
+    <origin rpy="0 0 0" xyz="-0.010433493561912408 -0.05364218820900604 -0.012962459265309978"/>
+    <mass value="0.09269511207913636"/>
+    <inertia ixx="0.000359" ixy="-6.7e-05" ixz="0.0" iyy="4.4e-05" iyz="1e-06" izz="0.000395"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="0.081 -0.28933 0.305495"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/link_3_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0.081 -0.28933 0.305495"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/link_3_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+<joint name="Rev10" type="revolute">
+  <origin rpy="0 0 0" xyz="-0.015 -0.110657 -0.012771"/>
+  <parent link="link_3_1_1_1"/>
+  <child link="link_4_1_1_1"/>
+  <axis xyz="-0.0 -1.0 -0.0"/>
+  <limit effort="100" lower="${-pi*150/180}" upper="${pi*150/180}" velocity="100"/>
+</joint>
+
+<link name="link_4_1_1_1">
+  <inertial>
+    <origin rpy="0 0 0" xyz="0.0024869584478057066 -0.031379057486560585 5.9295509331980245e-05"/>
+    <mass value="0.034526075690169286"/>
+    <inertia ixx="3.1e-05" ixy="3e-06" ixz="0.0" iyy="1.5e-05" iyz="0.0" izz="2.1e-05"/>
+  </inertial>
+  <visual>
+    <origin rpy="0 0 0" xyz="0.096 -0.178673 0.318266"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/link_4_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+    <material name="silver"/>
+  </visual>
+  <collision>
+    <origin rpy="0 0 0" xyz="0.096 -0.178673 0.318266"/>
+    <geometry>
+      <mesh filename="package://Robot_description/meshes/link_4_1_1_1.stl" scale="0.001 0.001 0.001"/>
+    </geometry>
+  </collision>
+</link>
+
+</robot>
